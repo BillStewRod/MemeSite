@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mazinger Virtual Coffee Shop</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5 animate__animated animate__bounceIn">☕ Mazinger Virtual Coffee Shop! ☕</h1>
+        <form method="post" class="mt-4">
+            <div class="form-group">
+                <p>{{ question }}</p>
+                {% if step == 0 %}
+                    <input type="text" name="name" class="form-control animate-bounce" required>
+                {% elif step == 1 %}
+                    <input type="text" name="evil_status" class="form-control animate-bounce" required>
+                {% elif step == 2 %}
+                    <input type="number" name="good_deeds" class="form-control animate-bounce" min="0" required>
+                {% elif step == 3 %}
+                    <input type="text" name="evil_status_confirm" class="form-control animate-bounce" required>
+                {% elif step == 4 %}
+                    <input type="text" name="has_beard" class="form-control animate-bounce" required>
+                {% elif step == 5 %}
+                    <input type="number" name="beard_length" class="form-control animate-bounce" min="0" required>
+                {% elif step == 6 %}
+                    <select name="order" class="form-control animate-bounce" required>
+                        {% for item in menu %}
+                            <option value="{{ item.name }}">{{ item.name }} - ${{ item.price }}</option>
+                        {% endfor %}
+                    </select>
+                {% elif step == 7 %}
+                    <input type="number" name="quantity" class="form-control animate-bounce" min="1" required>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary animate__animated animate__pulse">Submit</button>
+        </form>
+
+        {% if message %}
+            <p class="alert alert-info mt-4 animate__animated animate__fadeIn">{{ message }}</p>
+        {% endif %}
+        
+        {% if show_reset %}
+            <form method="post">
+                <button type="submit" name="reset" class="btn btn-danger mt-3 animate__animated animate__shakeX">Reset</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
